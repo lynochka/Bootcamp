@@ -23,7 +23,8 @@ console.log(url)
         : 'font-medium text-gray-500 hover:text-gray-900' }>Pricing</a>
       <a href="/blog" class={url==='/blog' ? 'font-bold text-gray-800 hover:text-gray-600'
         : 'font-medium text-gray-500 hover:text-gray-900' }>Blog</a>
-      <a href="/login" class="font-medium text-gray-500 hover:text-gray-900">Login</a>
+      <a href="/login" class={url==='/login' ? 'font-bold text-gray-800 hover:text-gray-600'
+        : 'font-medium text-gray-500 hover:text-gray-900' }>Login</a>
       <a href="/signup" class="font-medium text-white hover:bg-blue-600 bg-blue-500 px-3 py-2 -mt-2 rounded-lg">Sign
         up</a>
     </nav>
