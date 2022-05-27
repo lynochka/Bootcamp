@@ -1,9 +1,11 @@
 import styles from "../styles/Home.module.css";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 export default function Home() {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   if (status === "loading") {
     return (
@@ -28,10 +30,23 @@ export default function Home() {
   return (
     <div className={styles.container}>
       {session ? (
-        <p>You are logged in!</p>
+        <p>
+          You are logged as&nbsp;
+          {session.user.email}
+          &nbsp;
+          <button
+            className="underline block"
+            onClick={() => {
+              signOut();
+              router.push("/");
+            }}
+          >
+            Logout
+          </button>
+        </p>
       ) : (
         <p>
-          You are not logged in 😞. &nbsp;
+          You are not logged in 😞.&nbsp;
           <Link href="/api/auth/signin">
             <a className="underline">Login</a>
           </Link>
