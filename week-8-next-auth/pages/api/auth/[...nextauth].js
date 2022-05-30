@@ -19,11 +19,6 @@ export default NextAuth({
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
 
-  jwt: {
-    secret: process.env.SECRET, //use the random secret token you used for .env also here
-    encryption: true,
-  },
-
   debug: true,
   adapter: PrismaAdapter(prisma),
 });
