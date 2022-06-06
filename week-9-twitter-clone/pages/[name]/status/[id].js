@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 export default function SingleTweet({ tweet, replies, parent }) {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
 
   if (typeof window !== "undefined" && tweet.parent) {
