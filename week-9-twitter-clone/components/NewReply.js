@@ -14,7 +14,7 @@ export default function NewReply({ tweet }) {
           alert("Enter some text in the reply");
           return;
         }
-        const res = await fetch("/api/tweet", {
+        await fetch("/api/tweet", {
           body: JSON.stringify({
             parent: tweet.id,
             content: reply,
