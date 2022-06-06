@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
 export default function NewTweet({ tweets, setTweets }) {
   const [content, setContent] = useState("");
   const { data: session } = useSession();
-  const router = useRouter();
 
   //don't display if we're not logged in
   if (!session || !session.user) return null;
@@ -32,7 +30,6 @@ export default function NewTweet({ tweets, setTweets }) {
         const tweet = await res.json();
         setTweets([tweet, ...tweets]);
         setContent("");
-        //router.reload(window.location.pathname);
       }}
     >
       <div className="flex-col">
