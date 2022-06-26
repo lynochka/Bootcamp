@@ -1,4 +1,4 @@
-html,
+html 
 body {
   padding: 0;
   margin: 0;
@@ -18,3 +18,15 @@ a {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Does not work for me on Windows + Chrome
+@media (prefers-color-scheme: dark) {
+  html {
+    filter: invert(100%);
+  }
+
+  img {
+    filter: invert(100%);
+  }
+}
+*/
