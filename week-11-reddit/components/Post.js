@@ -1,5 +1,6 @@
 import timeago from "lib/timeago";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Post({ post }) {
   return (
@@ -23,7 +24,14 @@ export default function Post({ post }) {
         <a className="text-2xl font-bold color-primary mt-5">{post.title}</a>
       </Link>
       {post.image && (
-        <img className="object-scale-down h-64 mt-2" src={post.image} />
+        <Image
+          className="object-left"
+          alt={post.title}
+          src={post.image}
+          width={500}
+          height={500}
+          objectFit="contain"
+        />
       )}
       <p className="text-base font-normal color-primary mt-2">{post.content}</p>
     </div>
