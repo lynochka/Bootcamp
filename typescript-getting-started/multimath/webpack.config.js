@@ -22,7 +22,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: "ts-loader",
-        exclude: ["/node_modules/"],
+        exclude: "/node_modules/",
       },
       {
         test: /\.css$/,
@@ -49,5 +49,5 @@ module.exports = {
       cache: false,
     }),
   ],
-  devtool: "inline-source-map",
+  devtool: "inline-source-map", // change to source-map on 'production'
 };
