@@ -51,6 +51,9 @@ Cltr+Space to see the list of settings in tsconfig.json file.
 
     - `new` constructor
     - `extends`, `implements`
+    - `static` properties/methods are only available via class, they don't use this. to refer to other class properties
+    - `constructor()`
+    - `readonly` property
     
 
 - modules
