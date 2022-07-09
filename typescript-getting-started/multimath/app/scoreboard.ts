@@ -1,7 +1,9 @@
-/// <reference path="result.ts" />
+import { Result } from "./result";
 
-class Scoreboard {
+export class Scoreboard {
   private results: Result[] = [];
+
+  constructor(private playerName: string) {}
 
   addResult(newResult: Result): void {
     this.results.push(newResult);
@@ -14,12 +16,12 @@ class Scoreboard {
       const result: Result = this.results[index];
       output += "<h4>";
       output +=
-        result.playerName +
+        (this.playerName ? this.playerName : "Player") +
         ": " +
         result.score +
         "/" +
         result.problemCount +
-        " for factor" +
+        " for factor " +
         result.factor;
       output += "</h4>";
     }

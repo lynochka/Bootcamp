@@ -57,4 +57,22 @@ Cltr+Space to see the list of settings in tsconfig.json file.
     
 
 - modules
+  - supporting technologies for typescript modules in browser applications
+    - Typescript compiler -> JS Modules: AMD, CommonJS, UMD, System, ES2015
+    - Loader/Bundler: Node, RequireJS, SystemJS, Webpack
+
+  - import and export syntax
+  - module resolution (location)
+    - `tsc --moduleResolution Classic | Node`
+      - Classic: AMD, UMD, System, ES2015
+        - 
+      - Node: CommonJS
+        - Closely mirrors Node module resolution
+        - More configurable: reads `project.json`
+
+    - tsconfig: 
+      - "paths": {"my_lib": ["./customPath"]} is relative to "baseUrl": "..."
+      - "rootDirs": [] for source files spread accross multiple directories
+
+
 - type-declaration files

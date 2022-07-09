@@ -1,5 +1,4 @@
-interface Result {
-  playerName: string;
+export interface Result {
   score: number;
   problemCount: number;
   factor: number;
