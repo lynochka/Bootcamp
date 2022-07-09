@@ -1,12 +1,17 @@
+import * as _ from "lodash";
 import { Result } from "./result";
 
 export class Scoreboard {
   private results: Result[] = [];
 
-  constructor(private playerName: string) {}
+  constructor(private playerName: string) {
+    this.playerName = playerName ? playerName : "Player";
+  }
 
   addResult(newResult: Result): void {
     this.results.push(newResult);
+    let allCapsName: string = _.upperCase(this.playerName);
+    console.log(`${allCapsName}: ${newResult.score}`);
   }
 
   updateScoreboard(): void {
@@ -16,7 +21,7 @@ export class Scoreboard {
       const result: Result = this.results[index];
       output += "<h4>";
       output +=
-        (this.playerName ? this.playerName : "Player") +
+        this.playerName +
         ": " +
         result.score +
         "/" +

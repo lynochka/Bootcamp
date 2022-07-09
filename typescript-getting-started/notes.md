@@ -24,6 +24,7 @@ Cltr+Space to see the list of settings in tsconfig.json file.
   - control flow-based type analysis (!)
     - typeof conditions - for the most specific type possible
 
+
 - better functions
   - type annotations
     - parameter? as optional
@@ -33,6 +34,7 @@ Cltr+Space to see the list of settings in tsconfig.json file.
     - one typed parameter needs parentheses too 
     
   - declaring function types: arrow-function like
+
 
 - custom types
   - Interfaces
@@ -76,3 +78,7 @@ Cltr+Space to see the list of settings in tsconfig.json file.
 
 
 - type-declaration files
+  - also referred to as 'type-definition files' or 'type libraries'
+  - End with `d.ts`
+  - `DefinetelyTyped` as a source for installation utilities
+  - https://www.typescriptlang.org/tools -> Type Search for, e.g., @types/lodash
