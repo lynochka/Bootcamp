@@ -1,6 +1,12 @@
 import { amount } from "lib/config";
 
-export default function LoadMore({ videos, setVideos, setReachedEnd, author }) {
+export default function LoadMore({
+  videos,
+  setVideos,
+  setReachedEnd,
+  author,
+  subscriptionsOf,
+}) {
   return (
     <div className="flex justify-center">
       <button
@@ -10,6 +16,11 @@ export default function LoadMore({ videos, setVideos, setReachedEnd, author }) {
           if (author) {
             url += `&author=${author.id}`;
           }
+
+          if (subscriptionsOf) {
+            url += `&subscriptionsOf=${subscriptionsOf}`;
+          }
+
           const res = await fetch(url);
           const data = await res.json();
           if (data.length < amount) {

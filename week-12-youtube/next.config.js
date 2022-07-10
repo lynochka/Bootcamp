@@ -5,6 +5,7 @@ const nextConfig = {
     domains: [
       "localhost",
       "bootcamp-lynochka.s3.eu-north-1.amazonaws.com",
+      "bootcamp-lynochka.s3.amazonaws.com",
       "cloudflare-ipfs.com",
     ],
   },

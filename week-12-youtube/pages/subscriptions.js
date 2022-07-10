@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
 import { getVideos } from "lib/data";
 import { amount } from "lib/config";
 import prisma from "lib/prisma";
@@ -44,14 +44,17 @@ export default function Home({ initialVideos }) {
           videos={videos}
           setVideos={setVideos}
           setReachedEnd={setReachedEnd}
+          subscriptionsOf={session.user.id}
         />
       )}
     </div>
   );
 }
 
-export async function getServerSideProps() {
-  let videos = await getVideos({}, prisma);
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  let videos = await getVideos({ subscriptionsOf: session.user.id }, prisma);
   videos = JSON.parse(JSON.stringify(videos));
 
   return {
