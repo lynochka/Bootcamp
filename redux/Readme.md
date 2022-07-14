@@ -23,4 +23,9 @@ Dependencies explained:
 | babel-loader                       | Add Babel support to Webpack                                     |
 | @babel/preset-env                  | Smart preset to support target environments                      |
 | @babel/preset-react                | Babel preset for working in React.                               |
+| @babel/eslint-parser               | Lint modern JavaScript via ESLint                                |
+| eslint                             | Lints JavaScript                                                 |
+| eslint-loader                      | Run ESLint via Webpack                                           |
+| eslint-plugin-import               | Advanced linting of ES6 imports                                  |
+| eslint-plugin-react                | Adds React-related rules to ESLint                               |
 

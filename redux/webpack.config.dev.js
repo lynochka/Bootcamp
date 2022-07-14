@@ -24,7 +24,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "src/index.html",
-      favicon: "src/icons8-dog-swim-96.png",
+      favicon: "src/favicon.ico",
     }),
   ],
   module: {
@@ -32,12 +32,15 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: ["@babel/preset-env", "@babel/preset-react"],
+            },
           },
-        },
+          "eslint-loader", //rules are processed bottom-up
+        ],
       },
       {
         test: /\.css$/,
