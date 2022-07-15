@@ -6,6 +6,12 @@ Dependencies explained:
 | ---------------- | ---------------------------------------------------- |
 | react            | React library                                        |
 | react-dom        | React library for DOM rendering                      |
+| react-router-dom | Library for routing (! depends on old eslint)        |
+| react-redux      | Connects React components to Redux                   |
+| redux            | Library for unidirectional data flows                |
+| redux-thunk      | Async redux library                                  |
+
+Note: https://stackoverflow.com/questions/38405571/what-are-differences-between-redux-react-redux-redux-thunk
 
 
 ### Development Dependencies
