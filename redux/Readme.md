@@ -13,6 +13,9 @@ Dependencies explained:
 
 Note: https://stackoverflow.com/questions/38405571/what-are-differences-between-redux-react-redux-redux-thunk
 
+| bootstrap        | CSS Framework                                        |
+
+
 
 ### Development Dependencies
 
