@@ -26,22 +26,30 @@ class CoursesPage extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h2>Courses</h2>
-        <h3>Add course</h3>
-        <input
-          type="text"
-          onChange={this.handleChange}
-          value={this.state.course.title}
-        />
-        <input type="submit" value="Save" />
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <h2>Courses</h2>
+          <h3>Add course</h3>
+          <input
+            type="text"
+            onChange={this.handleChange}
+            value={this.state.course.title}
+          />
+          <input type="submit" value="Save" />
+        </form>
+        {this.props.courses.map((course, index) => (
+          <div key={index}>{course.title}</div>
+        ))}
+      </div>
     );
   }
 }
 
 // expect dispatch to be passed in if we omit mapDispatchToProps
-CoursesPage.protoTypes = { dispatch: PropTypes.func.isRequired };
+CoursesPage.propTypes = {
+  courses: PropTypes.array.isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
 
 // removed ownProps as the second argument
 function mapStateToProps(state) {
