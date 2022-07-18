@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import * as courseActions from "../../redux/actions/courseActons";
 import PropTypes from "prop-types";
+import { bindActionCreators } from "redux";
 
 class CoursesPage extends React.Component {
   // less code than constructor(props) + super(props) + this.state = {...}
@@ -21,7 +22,7 @@ class CoursesPage extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.createCourse(this.state.course);
+    this.props.actions.createCourse(this.state.course);
   };
 
   render() {
@@ -48,7 +49,7 @@ class CoursesPage extends React.Component {
 // expect dispatch to be passed in if we omit mapDispatchToProps
 CoursesPage.propTypes = {
   courses: PropTypes.array.isRequired,
-  createCourse: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired,
 };
 
 // removed ownProps as the second argument
@@ -60,8 +61,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // in a manual set up, remember to wrap a call with dispatch
-    createCourse: (course) => dispatch(courseActions.createCourse(course)),
+    // bindActionCreators can accept a function or an object, so we can pass in all actions:
+    actions: bindActionCreators(courseActions, dispatch),
   };
 }
 
