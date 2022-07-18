@@ -1,5 +1,4 @@
 import * as types from "./actionTypes";
-
 import * as courseAPI from "../../api/courseApi";
 
 // an action-creator function
