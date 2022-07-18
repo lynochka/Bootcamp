@@ -21,7 +21,7 @@ class CoursesPage extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.dispatch(courseActions.createCourse(this.state.course));
+    this.props.createCourse(this.state.course);
   };
 
   render() {
@@ -48,7 +48,7 @@ class CoursesPage extends React.Component {
 // expect dispatch to be passed in if we omit mapDispatchToProps
 CoursesPage.propTypes = {
   courses: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  createCourse: PropTypes.func.isRequired,
 };
 
 // removed ownProps as the second argument
@@ -58,5 +58,11 @@ function mapStateToProps(state) {
   };
 }
 
-// leave out mapDispatchToProps as the second argument for now
-export default connect(mapStateToProps)(CoursesPage);
+function mapDispatchToProps(dispatch) {
+  return {
+    // in a manual set up, remember to wrap a call with dispatch
+    createCourse: (course) => dispatch(courseActions.createCourse(course)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
