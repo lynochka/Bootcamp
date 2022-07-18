@@ -1,11 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as courseActions from "../../redux/actions/courseActons";
-import * as authorActions from "../../redux/actions/authorActions";
+import { loadCourses } from "../../redux/actions/courseActons";
+import { loadAuthors } from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
-import CourseList from "./CourseList";
 
-class CoursesPage extends React.Component {
+class ManageCoursePage extends React.Component {
   componentDidMount() {
     const { courses, authors, loadCourses, loadAuthors } = this.props;
 
@@ -22,12 +21,16 @@ class CoursesPage extends React.Component {
   }
 
   render() {
-    return <CourseList courses={this.props.courses} />;
+    return (
+      <>
+        <h2>Manage Course</h2>
+      </>
+    );
   }
 }
 
 // expect dispatch to be passed in if we omit mapDispatchToProps
-CoursesPage.propTypes = {
+ManageCoursePage.propTypes = {
   courses: PropTypes.array.isRequired,
   authors: PropTypes.array.isRequired,
   loadCourses: PropTypes.func.isRequired,
@@ -37,25 +40,16 @@ CoursesPage.propTypes = {
 // removed ownProps as the second argument
 function mapStateToProps(state) {
   return {
-    courses:
-      state.authors.length === 0
-        ? []
-        : state.courses.map((course) => {
-            return {
-              ...course,
-              authorName: state.authors.find(
-                (author) => author.id === course.authorId
-              ).name,
-            };
-          }),
+    courses: state.courses,
     authors: state.authors,
   };
 }
 
 // mapDispatchToProps as an object, where each property is expected to be an action-creator function
+// by the time those are passed to props, these are *bound* action creators !
 const mapDispatchToProps = {
-  loadCourses: courseActions.loadCourses,
-  loadAuthors: authorActions.loadAuthors,
+  loadCourses,
+  loadAuthors,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
