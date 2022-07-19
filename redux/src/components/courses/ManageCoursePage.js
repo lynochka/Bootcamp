@@ -5,6 +5,7 @@ import { loadAuthors } from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
 import CourseForm from "./CourseForm";
 import { newCourse } from "../../../tools/mockData";
+import { useNavigate, useParams } from "react-router-dom";
 
 function ManageCoursePage({
   courses,
@@ -12,13 +13,20 @@ function ManageCoursePage({
   loadCourses,
   loadAuthors,
   saveCourse,
-  ...props
 }) {
-  const [course, setCourse] = useState({ ...props.course });
+  const navigate = useNavigate();
+  let { slug } = useParams();
+
+  const [course, setCourse] = useState({ ...newCourse });
+  //eslint-disable-next-line no-unused-vars
   const [errors, setErrors] = useState({});
 
-  setCourse;
-  setErrors;
+  function getCourseBySlug(courses, slug) {
+    const courseWithSlug = courses.find(
+      (course) => course.slug === slug || null
+    );
+    return courseWithSlug || newCourse;
+  }
 
   useEffect(() => {
     if (courses.length === 0) {
@@ -33,6 +41,10 @@ function ManageCoursePage({
     }
   }, []);
 
+  useEffect(() => {
+    setCourse({ ...getCourseBySlug(courses, slug) });
+  }, [slug, courses]);
+
   function handleChange(event) {
     // this destructure avoids the event getting garbage collected,
     // so that it's available within the nested setCourse callback
@@ -46,7 +58,9 @@ function ManageCoursePage({
 
   function handleSave(event) {
     event.preventDefault();
-    saveCourse(course);
+    saveCourse(course).then(() => {
+      navigate("/courses", { replace: true });
+    });
   }
 
   return (
@@ -62,7 +76,6 @@ function ManageCoursePage({
 
 // expect dispatch to be passed in if we omit mapDispatchToProps
 ManageCoursePage.propTypes = {
-  course: PropTypes.object.isRequired,
   courses: PropTypes.array.isRequired,
   authors: PropTypes.array.isRequired,
   loadCourses: PropTypes.func.isRequired,
@@ -70,10 +83,12 @@ ManageCoursePage.propTypes = {
   saveCourse: PropTypes.func.isRequired,
 };
 
+// TODO: Place in the courseReducer to be called by other components
+// TODO: For performance - memoize the response with a library like reselect
+
 // removed ownProps as the second argument
 function mapStateToProps(state) {
   return {
-    course: newCourse,
     courses: state.courses,
     authors: state.authors,
   };

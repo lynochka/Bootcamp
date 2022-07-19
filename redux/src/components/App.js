@@ -9,6 +9,7 @@ import ManageCoursePage from "./courses/ManageCoursePage";
 
 //exact is needed for '/' to only match HomePage
 function App() {
+  //:slug makes it available at props.params.match.slug in ManageCoursePage
   return (
     <div className="container-fluid">
       <Header />
