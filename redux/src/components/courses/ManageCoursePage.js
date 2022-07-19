@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { loadCourses } from "../../redux/actions/courseActons";
+import { loadCourses, saveCourse } from "../../redux/actions/courseActons";
 import { loadAuthors } from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
 import CourseForm from "./CourseForm";
@@ -11,6 +11,7 @@ function ManageCoursePage({
   authors,
   loadCourses,
   loadAuthors,
+  saveCourse,
   ...props
 }) {
   const [course, setCourse] = useState({ ...props.course });
@@ -32,7 +33,31 @@ function ManageCoursePage({
     }
   }, []);
 
-  return <CourseForm course={course} errors={errors} authors={authors} />;
+  function handleChange(event) {
+    // this destructure avoids the event getting garbage collected,
+    // so that it's available within the nested setCourse callback
+    const { name, value } = event.target;
+    // JS computed property syntax - to reference a property using a variable
+    setCourse((prevCourse) => ({
+      ...prevCourse,
+      [name]: name === "authorId" ? parseInt(value, 10) : value,
+    }));
+  }
+
+  function handleSave(event) {
+    event.preventDefault();
+    saveCourse(course);
+  }
+
+  return (
+    <CourseForm
+      course={course}
+      errors={errors}
+      authors={authors}
+      onChange={handleChange}
+      onSave={handleSave}
+    />
+  );
 }
 
 // expect dispatch to be passed in if we omit mapDispatchToProps
@@ -42,6 +67,7 @@ ManageCoursePage.propTypes = {
   authors: PropTypes.array.isRequired,
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
+  saveCourse: PropTypes.func.isRequired,
 };
 
 // removed ownProps as the second argument
@@ -58,6 +84,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   loadCourses,
   loadAuthors,
+  saveCourse,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
