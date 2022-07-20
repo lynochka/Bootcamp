@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
 import Spinner from "../common/Spinner";
 
-const CourseList = ({ courses, loading }) => {
+const CourseList = ({ courses, loading, onDeleteClick }) => {
   const navigate = useNavigate();
 
   return (
@@ -27,6 +27,7 @@ const CourseList = ({ courses, loading }) => {
               <th>Title</th>
               <th>Author</th>
               <th>Category</th>
+              <th />
             </tr>
           </thead>
           <tbody>
@@ -46,6 +47,15 @@ const CourseList = ({ courses, loading }) => {
                   </td>
                   <td>{course.authorName}</td>
                   <td>{course.category}</td>
+                  <td>
+                    <button
+                      className="btn btn-outline-danger"
+                      // don't forget to delay a delete and define onClick as a function :)
+                      onClick={() => onDeleteClick(course)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               );
             })}
@@ -59,6 +69,7 @@ const CourseList = ({ courses, loading }) => {
 CourseList.propTypes = {
   courses: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
 };
 
 export default CourseList;

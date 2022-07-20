@@ -4,6 +4,7 @@ import * as courseActions from "../../redux/actions/courseActons";
 import * as authorActions from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
 import CourseList from "./CourseList";
+import { toast } from "react-toastify";
 
 class CoursesPage extends React.Component {
   componentDidMount() {
@@ -21,9 +22,20 @@ class CoursesPage extends React.Component {
     }
   }
 
+  handleDeleteCourse = (course) => {
+    toast.success("Course deleted.");
+    this.props.deleteCourse(course).catch((error) => {
+      toast.error("Delete failed." + error.message, { autoClose: false });
+    });
+  };
+
   render() {
     return (
-      <CourseList courses={this.props.courses} loading={this.props.loading} />
+      <CourseList
+        courses={this.props.courses}
+        loading={this.props.loading}
+        onDeleteClick={this.handleDeleteCourse}
+      />
     );
   }
 }
@@ -34,6 +46,7 @@ CoursesPage.propTypes = {
   authors: PropTypes.array.isRequired,
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
+  deleteCourse: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
 };
 
@@ -61,6 +74,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   loadCourses: courseActions.loadCourses,
   loadAuthors: authorActions.loadAuthors,
+  deleteCourse: courseActions.deleteCourse,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
