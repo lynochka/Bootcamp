@@ -61,10 +61,15 @@ function ManageCoursePage({
   function handleSave(event) {
     event.preventDefault();
     setSaving(true); // no need to set it back to false since we will redirect to another page
-    saveCourse(course).then(() => {
-      toast.success("Course saved.");
-      navigate("/courses", { replace: true });
-    });
+    saveCourse(course)
+      .then(() => {
+        toast.success("Course saved.");
+        navigate("/courses", { replace: true });
+      })
+      .catch((error) => {
+        setSaving(true);
+        setErrors({ onSave: error.message });
+      });
   }
 
   return (
