@@ -22,7 +22,9 @@ class CoursesPage extends React.Component {
   }
 
   render() {
-    return <CourseList courses={this.props.courses} />;
+    return (
+      <CourseList courses={this.props.courses} loading={this.props.loading} />
+    );
   }
 }
 
@@ -32,6 +34,7 @@ CoursesPage.propTypes = {
   authors: PropTypes.array.isRequired,
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 // removed ownProps as the second argument
@@ -49,6 +52,8 @@ function mapStateToProps(state) {
             };
           }),
     authors: state.authors,
+    // TODO: could we do it via a local state instead?
+    loading: state.apiCallsInProgress > 0,
   };
 }
 

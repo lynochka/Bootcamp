@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import CourseForm from "./CourseForm";
 import { newCourse } from "../../../tools/mockData";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function ManageCoursePage({
   courses,
@@ -20,6 +21,7 @@ function ManageCoursePage({
   const [course, setCourse] = useState({ ...newCourse });
   //eslint-disable-next-line no-unused-vars
   const [errors, setErrors] = useState({});
+  const [saving, setSaving] = useState(false);
 
   function getCourseBySlug(courses, slug) {
     const courseWithSlug = courses.find(
@@ -58,7 +60,9 @@ function ManageCoursePage({
 
   function handleSave(event) {
     event.preventDefault();
+    setSaving(true); // no need to set it back to false since we will redirect to another page
     saveCourse(course).then(() => {
+      toast.success("Course saved.");
       navigate("/courses", { replace: true });
     });
   }
@@ -70,6 +74,7 @@ function ManageCoursePage({
       authors={authors}
       onChange={handleChange}
       onSave={handleSave}
+      saving={saving}
     />
   );
 }

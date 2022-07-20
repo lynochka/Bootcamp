@@ -1,0 +1,1 @@
+Keep fetch calls in separate files to deal with those concerns in isolation.

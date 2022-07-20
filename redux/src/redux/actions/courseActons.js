@@ -1,5 +1,6 @@
 import * as types from "./actionTypes";
 import * as courseAPI from "../../api/courseApi";
+import { beginApiCall } from "./apiStatusActions";
 
 // --- action-creator functions ---
 
@@ -22,6 +23,9 @@ export function updateCourseSuccess(course) {
 export function loadCourses() {
   //dispatch as a first argument
   return function (dispatch) {
+    // dispatching beginApiCall here shows explicitly
+    // which thunks should follow a preloader and which not, e.g., an optimistic create/update/delete
+    dispatch(beginApiCall());
     return courseAPI
       .getCourses()
       .then((courses) => {
@@ -34,13 +38,13 @@ export function loadCourses() {
 }
 
 export function saveCourse(course) {
+  //eslint-disable-next-line no-unused-vars
   return function (dispatch, getState) {
     // instead of passing the course in from the form,
     // we may choose to access the store state within the thunk
     // without having to pass the data all into your thunk
 
-    //eslint-disable-next-line no-unused-vars
-    console.log("-->", Object.keys(getState));
+    dispatch(beginApiCall());
 
     return courseAPI
       .saveCourse(course)

@@ -6,6 +6,8 @@ import Header from "./common/Header";
 import PageNotFound from "./PageNotFound";
 import CoursesPage from "./courses/CoursesPage";
 import ManageCoursePage from "./courses/ManageCoursePage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //exact is needed for '/' to only match HomePage
 function App() {
@@ -21,6 +23,7 @@ function App() {
         <Route path="/course" element={<ManageCoursePage />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
+      <ToastContainer autoClose={3000} hideProgressBar />
     </div>
   );
 }

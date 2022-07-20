@@ -1,5 +1,6 @@
 import * as types from "./actionTypes";
 import * as authorApi from "../../api/authorApi";
+import { beginApiCall } from "./apiStatusActions";
 
 // convention to use ...Success
 // could follow a corresponding ...Failure or ...Error
@@ -11,6 +12,7 @@ export function loadAuthorsSuccess(authors) {
 export function loadAuthors() {
   //dispatch as a first argument
   return function (dispatch) {
+    dispatch(beginApiCall());
     return authorApi
       .getAuthors()
       .then((authors) => {
