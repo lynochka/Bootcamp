@@ -58,8 +58,24 @@ function ManageCoursePage({
     }));
   }
 
+  // Tip: If yous API is built in Node, you can share your validation logic on client and server via npm
+  function formIsValid() {
+    const { title, authorId, category } = course;
+    const errors = {};
+
+    if (!title) errors.title = "Title is required.";
+    if (!authorId) errors.author = "Author is required.";
+    if (!category) errors.category = "Category is required.";
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  }
+
   function handleSave(event) {
     event.preventDefault();
+    if (!formIsValid()) {
+      return;
+    }
     setSaving(true); // no need to set it back to false since we will redirect to another page
     saveCourse(course)
       .then(() => {
