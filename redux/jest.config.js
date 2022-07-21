@@ -5,4 +5,5 @@ module.exports = {
       "<rootDir>/tools/fileMock.js",
     "\\.(css|less)$": "<rootDir>/tools/styleMock.js",
   },
+  setupFiles: ["./tools/testSetup.js"],
 };
