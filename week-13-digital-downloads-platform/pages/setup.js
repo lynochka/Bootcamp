@@ -36,10 +36,10 @@ export default function Setup() {
         router.push("/dashboard");
       }}
     >
-      <h1 className="flex justify-center mt-20 text-xl">Welcome!</h1>
+      <h1 className="text-center mt-20 mb-20 text-xl">Welcome!</h1>
 
-      <div className="flex-1 mb-5 mt-20">
-        <div className="flex-1 mb-5">Please enter your name</div>
+      <div className="mb-10">
+        <div className="mb-3">Please enter your name</div>
         <input
           type="text"
           name="name"
@@ -49,7 +49,7 @@ export default function Setup() {
         />
       </div>
 
-      <button className="border px-8 py-2 mt-0 font-bold hover:bg-white hover:text-black">
+      <button className="border px-8 py-2 font-bold hover:bg-white hover:text-black">
         Save
       </button>
     </form>
