@@ -1,14 +1,66 @@
 import Head from "next/head";
 import Link from "next/link";
-
+import { useRouter } from "next/router";
 import prisma from "lib/prisma";
-import { getProduct } from "lib/data";
-
+import { getProduct, alreadyPurchased } from "lib/data";
 import Heading from "components/Heading";
+import { useSession, getSession } from "next-auth/react";
 
-export default function Product({ product }) {
+export default function Product({ product, purchased }) {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  const loading = status === "loading";
+
+  if (loading) {
+    return null;
+  }
+
   if (!product) {
     return null;
+  }
+
+  async function handlePurchase() {
+    if (product.free) {
+      await fetch("/api/download", {
+        body: JSON.stringify({
+          product_id: product.id,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      });
+
+      router.push("/dashboard");
+    } else {
+      const res = await fetch("/api/stripe/session", {
+        body: JSON.stringify({
+          amount: product.price,
+          title: product.title,
+          product_id: product.id,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      });
+
+      const data = await res.json();
+
+      if (data.status === "error") {
+        alert(data.message);
+        return;
+      }
+
+      const sessionId = data.sessionId;
+      const stripePublicKey = data.stripePublicKey;
+
+      const stripe = Stripe(stripePublicKey);
+      const { error } = await stripe.redirectToCheckout({
+        sessionId,
+      });
+    }
   }
 
   return (
@@ -17,6 +69,7 @@ export default function Product({ product }) {
         <title>Digital Downloads</title>
         <meta name="description" content="Digital Downloads Website" />
         <link rel="icon" href="/favicon.ico" />
+        <script src="https://js.stripe.com/v3/" async></script>
       </Head>
 
       <Heading />
@@ -37,9 +90,27 @@ export default function Product({ product }) {
             )}
           </div>
           <div>
-            <button className="text-sm border p-2 font-bold uppercase">
-              PURCHASE
-            </button>
+            {!session && <p>Login first</p>}
+            {session && (
+              <>
+                {purchased ? (
+                  "Already purchased"
+                ) : (
+                  <>
+                    {session.user.id !== product.author.id ? (
+                      <button
+                        className="text-sm border p-2 font-bold uppercase"
+                        onClick={handlePurchase}
+                      >
+                        {product.free ? "DOWNLOAD" : "PURCHASE"}
+                      </button>
+                    ) : (
+                      "Your product"
+                    )}
+                  </>
+                )}
+              </>
+            )}
           </div>
         </div>
         <div className="mb-10">{product.description}</div>
@@ -55,12 +126,23 @@ export default function Product({ product }) {
 }
 
 export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
   let product = await getProduct(context.params.id, prisma);
   product = JSON.parse(JSON.stringify(product));
+
+  let purchased = null;
+  if (session) {
+    purchased = await alreadyPurchased(
+      { author: session.user.id, product: context.params.id },
+      prisma
+    );
+  }
 
   return {
     props: {
       product,
+      purchased,
     },
   };
 }

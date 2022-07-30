@@ -18,13 +18,14 @@ export default function Home({ products }) {
 
       <Heading />
 
-      <h1 className="flex justify-center mt-20 text-xl">Welcome!</h1>
+      <div className="w-2/3 mx-auto">
+        <h1 className="flex justify-center mt-20 text-xl">Welcome!</h1>
+        <h1 className="flex justify-center mt-20 text-xl">
+          Explore the most popular products
+        </h1>
 
-      <h1 className="flex justify-center mt-20 text-xl">
-        Explore the most popular products
-      </h1>
-
-      <ProductList products={products} />
+        <ProductList products={products} />
+      </div>
     </div>
   );
 }

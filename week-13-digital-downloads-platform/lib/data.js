@@ -14,6 +14,12 @@ export const getProducts = async (options, prisma) => {
     };
   }
 
+  if (options.includePurchases) {
+    data.include = {
+      Purchase: true,
+    };
+  }
+
   if (options.take) {
     data.take = options.take;
   }
@@ -44,4 +50,76 @@ export const getUser = async (id, prisma) => {
   });
 
   return user;
+};
+
+export const getPurchases = async (options, prisma) => {
+  const data = {
+    where: { paid: true },
+    orderBy: [
+      {
+        createdAt: "desc",
+      },
+    ],
+    include: {
+      product: true,
+    },
+  };
+
+  if (options.author) {
+    data.where.author = {
+      id: options.author,
+    };
+  }
+
+  const purchases = await prisma.purchase.findMany(data);
+
+  return purchases;
+};
+
+export const alreadyPurchased = async (options, prisma) => {
+  const purchases = await prisma.purchase.findMany({
+    where: {
+      product: {
+        id: options.product,
+      },
+      author: {
+        id: options.author,
+      },
+      paid: true,
+    },
+    include: {
+      author: true,
+      product: true,
+    },
+  });
+
+  if (purchases.length > 0) return true;
+  return false;
+};
+
+export const getSales = async (options, prisma) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: options.author,
+    },
+    include: { Product: true },
+  });
+
+  let purchases = [];
+  if (user.Product) {
+    purchases = await prisma.purchase.findMany({
+      where: {
+        paid: true,
+        productId: {
+          in: user.Product.map((product) => product.id),
+        },
+      },
+      include: {
+        product: true,
+        author: true,
+      },
+    });
+  }
+
+  return purchases;
 };
