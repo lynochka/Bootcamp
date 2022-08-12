@@ -57,7 +57,7 @@ function renderConnectedComponent(args) {
   );
 }
 
-it("sets error when attempting to save an empty title field", () => {
+it("too complex test - sets error when attempting to save an empty title field", () => {
   const wrapper = renderConnectedComponent();
   fireEvent.click(wrapper.getByRole("button"));
 
