@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as courseActions from "../../redux/actions/courseActons";
+import * as courseActions from "../../redux/actions/courseActions";
 import * as authorActions from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
 import CourseList from "./CourseList";

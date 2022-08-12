@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { loadCourses, saveCourse } from "../../redux/actions/courseActons";
+import { loadCourses, saveCourse } from "../../redux/actions/courseActions";
 import { loadAuthors } from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
 import CourseForm from "./CourseForm";
@@ -8,7 +8,7 @@ import { newCourse } from "../../../tools/mockData";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-function ManageCoursePage({
+export function ManageCoursePage({
   courses,
   authors,
   loadCourses,

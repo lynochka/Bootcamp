@@ -2,7 +2,9 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { authors, newCourse, courses } from "../../../tools/mockData";
-import ManageCoursePage from "./ManageCoursePage";
+import ConnectedManageCoursePage, {
+  ManageCoursePage,
+} from "./ManageCoursePage";
 import { Provider as ReduxProvider } from "react-redux";
 
 import configureAppStore from "../../redux/configureAppStore";
@@ -23,19 +25,47 @@ function renderComponent(args) {
     course: newCourse,
     match: {},
   };
+
+  const props = { ...defaultProps, ...args };
+  return render(
+    <BrowserRouter>
+      <ManageCoursePage {...props} />
+    </BrowserRouter>
+  );
+}
+
+function renderConnectedComponent(args) {
+  const defaultProps = {
+    authors,
+    courses,
+    history: {},
+    saveCourse: jest.fn(),
+    loadAuthors: jest.fn(),
+    loadCourses: jest.fn(),
+    course: newCourse,
+    match: {},
+  };
   const store = configureAppStore({ courses, authors });
 
   const props = { ...defaultProps, ...args };
   return render(
     <ReduxProvider store={store}>
       <BrowserRouter>
-        <ManageCoursePage {...props} />
+        <ConnectedManageCoursePage {...props} />
       </BrowserRouter>
     </ReduxProvider>
   );
 }
 
 it("sets error when attempting to save an empty title field", () => {
+  const wrapper = renderConnectedComponent();
+  fireEvent.click(wrapper.getByRole("button"));
+
+  const error = wrapper.getAllByRole("alert")[0];
+  expect(error).toHaveTextContent("Title is required.");
+});
+
+it("simpler test - sets error when attempting to save an empty title field", () => {
   const wrapper = renderComponent();
   fireEvent.click(wrapper.getByRole("button"));
 
