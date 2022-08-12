@@ -1,9 +1,7 @@
-import { createStore } from "redux";
 import rootReducer from "./reducers";
 import initialState from "./reducers/initialState";
 import * as courseActions from "./actions/courseActions";
 import { configureStore } from "@reduxjs/toolkit";
-import { act } from "react-test-renderer";
 
 it("Should handle creating courses", function () {
   const store = configureStore({
