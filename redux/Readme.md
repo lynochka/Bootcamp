@@ -1,40 +1,26 @@
-Dependencies explained:
+# Courses App 
 
-### Production Dependencies
+Based on https://app.pluralsight.com/library/courses/react-redux-react-router-es6
 
-| **Dependency**   | **Use**                                              |
-| ---------------- | ---------------------------------------------------- |
-| react            | React library                                        |
-| react-dom        | React library for DOM rendering                      |
-| react-router-dom | Library for routing (! depends on old eslint)        |
-| react-redux      | Connects React components to Redux                   |
-| redux            | Library for unidirectional data flows                |
-| redux-thunk      | Async redux library                                  |
+- Much changes Redux tests using react-testing-library instead of Enzyme
+- Newer Redux tools such as configureStore
+- All modifications related to fresh package versions: React-18, React-router-6, Boostrap-5.
 
-Note: https://stackoverflow.com/questions/38405571/what-are-differences-between-redux-react-redux-redux-thunk
+## Additional challenges
 
-| bootstrap        | CSS Framework                                        |
-
-
-
-### Development Dependencies
-
-| **Dependency**                     | **Use**                                                          |
-| ---------------------------------- | ---------------------------------------------------------------- |
-| webpack                            | Bundler with plugin ecosystem and integrated dev server          |
-| webpack-cli                        | Run Webpack via the command line                                 |
-| webpack-dev-server                 | Serve app via Webpack                                            |
-| html-webpack-plugin                | Generate HTML file via webpack                                   |
-| babel-loader                       | Add Babel support to Webpack                                     |
-| css-loader                         | Read CSS files via Webpack                                       |
-| style-loader                       | Insert imported CSS into app via Webpack                         |
-| @babel/core                        | Transpiles modern JavaScript so it runs cross-browser            |
-| babel-loader                       | Add Babel support to Webpack                                     |
-| @babel/preset-env                  | Smart preset to support target environments                      |
-| @babel/preset-react                | Babel preset for working in React.                               |
-| @babel/eslint-parser               | Lint modern JavaScript via ESLint                                |
-| eslint                             | Lints JavaScript                                                 |
-| eslint-loader                      | Run ESLint via Webpack                                           |
-| eslint-plugin-import               | Advanced linting of ES6 imports                                  |
-| eslint-plugin-react                | Adds React-related rules to ESLint                               |
-
+1. Add support for administering authors. Make sure you can't delete an author who has a course.
+1. Add filters for the course list.
+1. Hide empty course list.
+1. Message to the user when they try to leave the course form while they have unsaved changes.
+1. Enhance the clinet- and server-side data validation on the Manage Course form.
+1. Show 404 on the Manage Course page when an invalide course slug is provided in the URL.
+</br>
+Hint: Add some logic to mapStateToProps.
+1. Show the number of courses in the header.
+</br>
+Hint: Should be trivial thanks to Redux store.
+1. Add Pagination to the course table.
+1. Sort course table by Title by default. Add drop-downs above the table to sort by different columns.
+</br>
+Hint: mapStateToProps is a good way.
+1. Try to keep the old course data, so that users could view history and click Undo to revert their changes even after hitting Save.
