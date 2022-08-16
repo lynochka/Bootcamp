@@ -1,12 +1,12 @@
-# Courses App 
+# Courses App (course project)
 
 Based on https://app.pluralsight.com/library/courses/react-redux-react-router-es6
 
-- Much changes Redux tests using react-testing-library instead of Enzyme
-- Newer Redux tools such as configureStore
-- All modifications related to fresh package versions: React-18, React-router-6, Boostrap-5.
+- Updated Redux-tests using React Testing Library, instead of Enzyme
+- Newer Redux tools from Redux Toolkig such as configureStore
+- Multiple code modifications related to fresh package versions: React-18, React-router-6, Boostrap-5.
 
-## Additional challenges
+## Consider additional challenges
 
 1. Add support for administering authors. Make sure you can't delete an author who has a course.
 1. Add filters for the course list.
