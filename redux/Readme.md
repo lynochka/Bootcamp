@@ -2,9 +2,9 @@
 
 Based on https://app.pluralsight.com/library/courses/react-redux-react-router-es6
 
-- Updated Redux-tests using React Testing Library, instead of Enzyme
-- Newer Redux tools from Redux Toolkig such as configureStore
-- Multiple code modifications related to fresh package versions: React-18, React-router-6, Boostrap-5.
+- Modifed course code due to package versions updates: React-18, React-router-6, Boostrap-5.
+- Replaced Redux-tests using React Testing Library, instead of Enzyme
+- Simplifed Redux boilerplates using newer tools from Redux Toolkig such as configureStore
 
 ## Consider additional challenges
 
